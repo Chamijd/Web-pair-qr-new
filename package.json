@@ -4,9 +4,9 @@
     "description": "A multi functional whatsapp bot Web paircode.",
     "main": "index.js",
     "scripts": {
-      "start": "pm2 start index.js --deep-monitoring --attach --name CHAMA-md",
-      "stop": "pm2 stop CHAMA-md",
-     "restart": "pm2 restart CHAMA-md"
+      "start": "pm2 start index.js --deep-monitoring --attach --name CHAMA-MD",
+      "stop": "pm2 stop CHAMA-MD",
+     "restart": "pm2 restart CHAMA-MD"
     },
   "dependencies": {
     "@whiskeysockets/baileys": "github:WhiskeySockets/Baileys",             
