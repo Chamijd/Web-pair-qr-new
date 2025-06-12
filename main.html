@@ -1,236 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang=en>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CHAMA-MD-V1 SYSTEM</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #000428, #004e92);
-      color: #fff;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
-
-    .loading-screen {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-      flex-direction: column;
-    }
-
-    .loader {
-      border: 8px solid #fff;
-      border-top: 8px solid #00f0ff;
-      border-radius: 50%;
-      width: 80px;
-      height: 80px;
-      animation: spin 1s linear infinite;
-      margin-bottom: 10px;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .container {
-      padding: 20px;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
-      color: #00f0ff;
-    }
-
-    .system-info {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid #00f0ff;
-      border-radius: 15px;
-      padding: 20px;
-      display: inline-block;
-      text-align: left;
-      backdrop-filter: blur(10px);
-      margin-bottom: 30px;
-    }
-
-    .info {
-      margin: 12px 0;
-      font-size: 18px;
-    }
-
-    #battery-info {
-      color: #00ffcc;
-      font-weight: bold;
-      text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc;
-    }
-
-    #battery-info i {
-      margin-right: 8px;
-      color: #00ffcc;
-    }
-
-    .button-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-    }
-
-    .button {
-      background: #00f0ff;
-      color: #000;
-      padding: 16px 28px;
-      font-size: 18px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-      display: inline-flex;
-      align-items: center;
-    }
-
-    .button i {
-      margin-right: 10px;
-    }
-
-    .button:hover {
-      background: #00d0cc;
-      transform: scale(1.07);
-      box-shadow: 0 0 12px #00f0ff;
-    }
-
-    #particles-js {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      top: 0;
-      left: 0;
-    }
-  </style>
+<meta charset=UTF-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>CHAMA-MD-V1 SYSTEM</title>
+<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css>
+<style>body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#000428,#004e92);color:#fff;margin:0;padding:0;overflow:hidden}.loading-screen{position:fixed;width:100%;height:100%;background:#000;display:flex;justify-content:center;align-items:center;z-index:999;flex-direction:column}.loader{border:8px solid #fff;border-top:8px solid #00f0ff;border-radius:50%;width:80px;height:80px;animation:spin 1s linear infinite;margin-bottom:10px}@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.container{padding:20px;text-align:center;position:relative;z-index:1}h1{font-size:36px;margin-bottom:10px;color:#00f0ff}.system-info{background:rgba(255,255,255,.1);border:1px solid #00f0ff;border-radius:15px;padding:20px;display:inline-block;text-align:left;backdrop-filter:blur(10px);margin-bottom:30px}.info{margin:12px 0;font-size:18px}#battery-info{color:#0fc;font-weight:700;text-shadow:0 0 5px #0fc,0 0 10px #0fc}#battery-info i{margin-right:8px;color:#0fc}.button-container{display:flex;flex-wrap:wrap;justify-content:center;gap:15px}.button{background:#00f0ff;color:#000;padding:16px 28px;font-size:18px;border-radius:12px;text-decoration:none;font-weight:700;transition:.3s;display:inline-flex;align-items:center}.button i{margin-right:10px}.button:hover{background:#00d0cc;transform:scale(1.07);box-shadow:0 0 12px #00f0ff}#particles-js{position:fixed;width:100%;height:100%;z-index:0;top:0;left:0}</style>
 </head>
-<body onload="startLoading()">
-
-  <div id="particles-js"></div>
-
-  <div class="loading-screen" id="loading-screen">
-    <div class="loader"></div>
-    <div>Initializing CHAMA-MD...</div>
-  </div>
-
-  <div class="container" style="display: none;" id="main-content">
-    <h1>CHAMA-MD-V1 SYSTEM</h1>
-
-    <div class="system-info">
-      <div class="info" id="ip-info">IP Address: Loading...</div>
-      <div class="info" id="time-info">Time: Loading...</div>
-      <div class="info" id="weather-info">Weather: Loading...</div>
-      <div class="info" id="battery-info"><i class="fas fa-battery-half"></i> Battery Level: Loading...</div>
-    </div>
-
-    <div class="button-container">
-      <a href="/pair" class="button"><i class="fas fa-link"></i> Pair Code</a>
-      <a href="/qr" class="button"><i class="fas fa-qrcode"></i> QR Code</a>
-      <a href="https://github.com/CHMA2009/-CHAMA-MD/fork" class="button"><i class="fas fa-code-branch"></i> Bot Fork</a>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-  <script>
-    function startLoading() {
-      setTimeout(() => {
-        document.getElementById("loading-screen").style.display = "none";
-        document.getElementById("main-content").style.display = "block";
-        fetchIPAndTime();
-        fetchWeather();
-        fetchBatteryLevel();
-      }, 2000);
-    }
-
-    function fetchIPAndTime() {
-      fetch("https://api.ipify.org?format=json")
-        .then((response) => response.json())
-        .then((data) => {
-          document.getElementById("ip-info").innerText = "IP Address: " + data.ip;
-        });
-
-      const now = new Date();
-      document.getElementById("time-info").innerText =
-        "Time: " + now.toLocaleTimeString();
-    }
-
-    function fetchWeather() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            fetch(`https://api.weatherapi.com/v1/current.json?key=4d673b437b5b4e92952155513242605&q=${lat},${lon}`)
-              .then((response) => response.json())
-              .then((data) => {
-                const condition = data.current.condition.text;
-                const temp = data.current.temp_c;
-                document.getElementById("weather-info").innerText =
-                  `Weather: ${condition}, ${temp}°C`;
-              });
-          },
-          () => {
-            document.getElementById("weather-info").innerText = "Weather: Location permission denied.";
-          }
-        );
-      } else {
-        document.getElementById("weather-info").innerText = "Weather: Geolocation not supported.";
-      }
-    }
-
-    async function fetchBatteryLevel() {
-      if (navigator.getBattery) {
-        const battery = await navigator.getBattery();
-        const level = Math.round(battery.level * 100);
-        document.getElementById('battery-info').innerHTML = `<i class="fas fa-battery-half"></i> Battery Level: ${level}%`;
-
-        battery.addEventListener('levelchange', () => {
-          const updatedLevel = Math.round(battery.level * 100);
-          document.getElementById('battery-info').innerHTML = `<i class="fas fa-battery-half"></i> Battery Level: ${updatedLevel}%`;
-        });
-      } else {
-        document.getElementById('battery-info').innerText = 'Battery info not supported.';
-      }
-    }
-
-    particlesJS("particles-js", {
-      particles: {
-        number: { value: 100 },
-        size: { value: 3 },
-        color: { value: "#00f0ff" },
-        line_linked: {
-          enable: true,
-          color: "#00f0ff",
-          opacity: 0.4
-        },
-        move: {
-          speed: 1
-        }
-      },
-      interactivity: {
-        events: {
-          onhover: { enable: true, mode: "repulse" }
-        }
-      }
-    });
-  </script>
+<body onload=startLoading()>
+<div id=particles-js></div>
+<div class=loading-screen id=loading-screen>
+<div class=loader></div>
+<div>Initializing CHAMA-MD...</div>
+</div>
+<div class=container style=display:none id=main-content>
+<h1>CHAMA-MD-V1 SYSTEM</h1>
+<div class=system-info>
+<div class=info id=ip-info>IP Address: Loading...</div>
+<div class=info id=time-info>Time: Loading...</div>
+<div class=info id=weather-info>Weather: Loading...</div>
+<div class=info id=battery-info><i class="fas fa-battery-half"></i> Battery Level: Loading...</div>
+</div>
+<div class=button-container>
+<a href=/pair class=button><i class="fas fa-link"></i> Pair Code</a>
+<a href=/qr class=button><i class="fas fa-qrcode"></i> QR Code</a>
+<a href=https://github.com/CHMA2009/-CHAMA-MD/fork class=button><i class="fas fa-code-branch"></i> Bot Fork</a>
+</div>
+</div>
+<script src=https://cdn.jsdelivr.net/npm/particles.js></script>
+<script>function startLoading(){setTimeout((()=>{document.getElementById("loading-screen").style.display="none",document.getElementById("main-content").style.display="block",fetchIPAndTime(),fetchWeather(),fetchBatteryLevel()}),2e3)}function fetchIPAndTime(){fetch("https://api.ipify.org?format=json").then((e=>e.json())).then((e=>{document.getElementById("ip-info").innerText="IP Address: "+e.ip}));const e=new Date;document.getElementById("time-info").innerText="Time: "+e.toLocaleTimeString()}function fetchWeather(){navigator.geolocation?navigator.geolocation.getCurrentPosition((e=>{const t=e.coords.latitude,n=e.coords.longitude;fetch(`https://api.weatherapi.com/v1/current.json?key=4d673b437b5b4e92952155513242605&q=${t},${n}`).then((e=>e.json())).then((e=>{const t=e.current.condition.text,n=e.current.temp_c;document.getElementById("weather-info").innerText=`Weather: ${t}, ${n}°C`}))}),(()=>{document.getElementById("weather-info").innerText="Weather: Location permission denied."})):document.getElementById("weather-info").innerText="Weather: Geolocation not supported."}async function fetchBatteryLevel(){if(navigator.getBattery){const e=await navigator.getBattery(),t=Math.round(100*e.level);document.getElementById("battery-info").innerHTML=`<i class="fas fa-battery-half"></i> Battery Level: ${t}%`,e.addEventListener("levelchange",(()=>{const t=Math.round(100*e.level);document.getElementById("battery-info").innerHTML=`<i class="fas fa-battery-half"></i> Battery Level: ${t}%`}))}else document.getElementById("battery-info").innerText="Battery info not supported."}particlesJS("particles-js",{particles:{number:{value:100},size:{value:3},color:{value:"#00f0ff"},line_linked:{enable:!0,color:"#00f0ff",opacity:.4},move:{speed:1}},interactivity:{events:{onhover:{enable:!0,mode:"repulse"}}}})</script>
 </body>
 </html>
