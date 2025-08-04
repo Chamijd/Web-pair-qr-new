@@ -15,7 +15,7 @@ app.use('/qr',async (req, res, next) => {
 res.sendFile(__path + '/qr.html')
 })
 app.use('/',async (req, res, next) => {
-res.sendFile(__path + '/main.html')
+res.sendFile(__path + '/index.html')
 })
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
